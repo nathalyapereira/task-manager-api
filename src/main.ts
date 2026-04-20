@@ -8,16 +8,39 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Task Manager API')
+    .setDescription('API de gerenciamento de tarefas com autenticação JWT')
     .setVersion('1.0')
-    .addBearerAuth()
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        description: 'Insira o token JWT aqui',
+      },
+      'JWT-auth',
+    )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document, {
+    swaggerOptions: {
+      persistAuthorization: true,
+    },
+  });
 
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      transform: true,
+      forbidNonWhitelisted: true,
+    }),
+  );
 
   SwaggerModule.setup('api', app, document);
 
   await app.listen(process.env.PORT || 3000);
+
+  console.log(`Aplicação rodando em: ${await app.getUrl()}`);
+  console.log(`Swagger disponível em: ${await app.getUrl()}/api`);
 }
 bootstrap();
