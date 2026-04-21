@@ -18,7 +18,8 @@ export class TarefasService {
   ) {}
 
   async criar(dto: CriarTarefaDto, usuario: Usuario): Promise<Tarefa> {
-    const tarefa = this.tarefaRepository.create({ ...dto, usuario });
+    const usuarioId = usuario.id;
+    const tarefa = this.tarefaRepository.create({ ...dto, usuarioId });
     return this.tarefaRepository.save(tarefa);
   }
 
@@ -28,7 +29,9 @@ export class TarefasService {
   ): Promise<Tarefa[]> {
     const query = this.tarefaRepository.createQueryBuilder('tarefa');
 
-    query.where('tarefa.usuarioId = :usuarioId', { usuarioId: usuario.id });
+    const usuarioId = usuario.id;
+
+    query.where('tarefa.usuarioId = :usuarioId', { usuarioId });
 
     if (filtro.status) {
       query.andWhere('tarefa.status = :status', { status: filtro.status });

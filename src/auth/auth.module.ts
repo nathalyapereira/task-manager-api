@@ -13,7 +13,7 @@ import { StringValue } from 'ms';
 @Module({
   imports: [
     TypeOrmModule.forFeature([Usuario]),
-    PassportModule,
+    PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

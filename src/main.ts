@@ -39,6 +39,6 @@ async function bootstrap() {
   await app.listen(process.env.PORT || 3000);
 
   console.log(`Aplicação rodando em: ${await app.getUrl()}`);
-  console.log(`Swagger disponível em: ${await app.getUrl()}/api`);
+  console.log(`Swagger disponível em: ${await app.getUrl()}/api-docs`);
 }
 bootstrap();

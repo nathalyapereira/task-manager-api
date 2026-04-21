@@ -24,6 +24,8 @@ export class Tarefa {
   criadoEm: Date;
 
   @UpdateDateColumn()
+  atualizadoEm!: Date;
+
   @ManyToOne(() => Usuario, (usuario) => usuario.tarefas, {
     onDelete: 'CASCADE',
   })

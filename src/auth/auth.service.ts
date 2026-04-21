@@ -19,7 +19,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async register(dto: RegistrarDto) {
+  async registrar(dto: RegistrarDto) {
     const exists = await this.usuarioRepository.findOne({
       where: { email: dto.email },
     });
@@ -33,6 +33,7 @@ export class AuthService {
     const usuario = this.usuarioRepository.create({
       email: dto.email,
       senha: hashedPassword,
+      nome: dto.nome,
     });
 
     await this.usuarioRepository.save(usuario);
