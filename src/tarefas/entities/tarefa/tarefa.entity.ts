@@ -14,6 +14,9 @@ export class Tarefa {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Column()
+  titulo: string;
+
   @Column({ nullable: true })
   descricao: string;
 
