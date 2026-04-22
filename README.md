@@ -36,6 +36,7 @@ API REST de gerenciamento de tarefas com autenticação JWT, desenvolvida com Ne
 - Validação de dados com **class-validator**
 - Documentação automática com **Swagger/OpenAPI**
 - Variáveis de ambiente com **ConfigModule**
+- Testes unitários e E2E com **Jest**
 
 ---
 
@@ -122,6 +123,49 @@ npm run start:dev
 
 Acesse a documentação em: `http://localhost:3000/api-docs`
 
+---
+ 
+## 🧪 Testes
+ 
+O projeto conta com testes unitários e E2E. Os testes E2E usam banco SQLite em memória — não precisam de conexão com o Supabase para rodar.
+ 
+```bash
+# testes unitários
+npm run test
+ 
+# testes unitários em modo watch
+npm run test:watch
+ 
+# testes E2E
+npm run test:e2e
+ 
+# cobertura de código
+npm run test:cov
+```
+ 
+### O que é testado
+ 
+**Unitários — `AuthService`**
+- Criação de usuário com hash de senha via bcrypt
+- Rejeição de email duplicado com `ConflictException`
+- Verificação de que o bcrypt é chamado com os parâmetros corretos
+- Login com credenciais válidas retornando token JWT
+- Rejeição de usuário inexistente com `UnauthorizedException`
+- Rejeição de senha errada com `UnauthorizedException`
+**Unitários — `TarefasService`**
+- Criação de tarefa vinculada ao usuário autenticado
+- Listagem de tarefas filtradas por usuário
+- Filtro por status com QueryBuilder
+- Busca por ID com validação de ownership
+- `NotFoundException` para tarefa inexistente
+- `ForbiddenException` para tarefa de outro usuário
+- Atualização e remoção de tarefa
+**E2E — fluxo completo**
+- Cadastro, login e rejeição de credenciais inválidas
+- CRUD completo de tarefas via HTTP
+- Proteção de rotas sem token JWT
+- Filtro por status via query param
+- Retorno 404 após deletar tarefa
 ---
 
 ## 🌐 Deploy
