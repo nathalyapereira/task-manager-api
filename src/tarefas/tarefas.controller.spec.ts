@@ -12,7 +12,7 @@ describe('TarefasController', () => {
     controller = module.get<TarefasController>(TarefasController);
   });
 
-  it('should be defined', () => {
+  it('Deve estar definido', () => {
     expect(controller).toBeDefined();
   });
 });

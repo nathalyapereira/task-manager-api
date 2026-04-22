@@ -1,7 +1,7 @@
 import { Tarefa } from './tarefa.entity';
 
 describe('Tarefa', () => {
-  it('should be defined', () => {
+  it('Deve estar definido', () => {
     expect(new Tarefa()).toBeDefined();
   });
 });

@@ -9,6 +9,7 @@ import { Repository } from 'typeorm';
 import { CriarTarefaDto } from './dto/criar-tarefa.dto';
 import { Usuario } from 'src/usuarios/entities/usuario/usuario.entity';
 import { FiltrarTarefaDto } from './dto/filtrar-tarefa.dto';
+import { AtualizarTarefaDto } from './dto/atualizar-tarefa.dto';
 
 @Injectable()
 export class TarefasService {
@@ -58,7 +59,7 @@ export class TarefasService {
 
   async atualizar(
     id: string,
-    dto: CriarTarefaDto,
+    dto: AtualizarTarefaDto,
     usuario: Usuario,
   ): Promise<Tarefa> {
     const tarefa = await this.findOne(id, usuario);
